@@ -22,4 +22,32 @@ class Group(db.Model):
         db.session.commit()
 
     def __repr__(self):
-        return "<Group: {}>".format(self.name)
+        return "<Group: {}>".format(self.name
+
+class GroupUser(db.Model):
+
+    __tablename__ = 'groupusers'
+    group_id = db.Column(db.Integer, nullable=False)
+    user_id = db.Column(db.Integer, nullable=False)
+    donated = db.Column(db.Float, nullable = False)
+
+    def __init__(self, name):
+        self.name = name
+
+    def get_group_members(id):
+        return Group.query.filter_by(group_id=id)
+
+    def get_user_groups(id):
+        return Group.query.filter_by(user_id=id)
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    def __repr__(self):
+        return "<GroupUser: {}>".format(self.name)
+
