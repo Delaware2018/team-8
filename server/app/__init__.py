@@ -3,6 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask import request, jsonify, abort
 from flask_restful import Resource, reqparse
 import bcrypt
+from flask_bcrypt import Bcrypt
+
 
 from instance.config import app_config
 
@@ -82,8 +84,8 @@ def create_app(config_name):
         f_name = request.args['firstname']
         l_name = request.args['lastname']
         email = request.args['email']
-        password = request.args['password'].encode('utf-8')
-        hashed = bcrypt.hashpw(password, bcrypt.gensalt())
+        password = request.args['password']
+        hashed = Bcrypt().generate_password_hash(password).decode()
         line_1 = request.args['line1']
         line_2 = request.args['line2']
         city = request.args['city']
@@ -111,12 +113,11 @@ def create_app(config_name):
         return response
 
     @app.route('/login/', methods=['POST'])
-    def register():
+    def login():
         email = request.args['email']
-        password = request.args['password'].encode('utf-8')
-        hashed = bcrypt.hashpw(password, bcrypt.gensalt())
+        password = request.args['password']
         my_user = User.query.filter_by(email=email).first()
-        if (hashed == my_user.password){
+        if (my_user.password_is_valid(password)):
             response = jsonify({
                 'id': my_user.id,
                 'email' : my_user.email,
@@ -132,10 +133,10 @@ def create_app(config_name):
                 'status_code' : 201
             })
             return response
-        }
-        else{
-            response = {'status_code' : 500}
-        }
+
+        else:
+            response = {'status_code' : hashed, 'password': my_user.password}
+
         return response
 
     @app.route('/', methods=['GET'])
