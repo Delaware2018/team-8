@@ -2,6 +2,7 @@ from flask_api import FlaskAPI
 from flask_sqlalchemy import SQLAlchemy
 from flask import request, jsonify, abort
 from flask_restful import Resource, reqparse
+import bcrypt
 
 
 from instance.config import app_config
@@ -18,6 +19,7 @@ def create_app(config_name):
     db.init_app(app)
 
     from app.models import Group
+    from app.models import User
 
     @app.route('/groups/', methods=['POST', 'GET'])
     def groups():
@@ -57,6 +59,38 @@ def create_app(config_name):
             'name' : result.name,
             'donated' : result.donated
         }
+        return response
+
+
+
+    @app.route('/user/register/', methods=['POST'])
+    def register():
+        f_name = request.args['firstname']
+        l_name = request.args['lastname']
+        password = request.args[b'password']
+        hashed = bcrypt.hashpw(password, bcrypt.gensalt())
+        line_1 = request.args['line1']
+        line_2 = request.args['line2']
+        city = request.args['city']
+        zipcode = request.args['zipcode']
+        country = request.args['country']
+
+        user = User(id=id)
+        user.save()
+
+        response = jsonify({
+            'id': user.id,
+            'firstname': user.f_name,
+            'lastname': user.l_name,
+            'password': user.hashed,
+            'line1': user.line_1,
+            'line2': user.line_2,
+            'city': user.city,
+            'zipcode': user.zipcode,
+            'country': user.country,
+
+        })
+        response.status_code = 201
         return response
 
     @app.route('/', methods=['GET'])
