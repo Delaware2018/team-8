@@ -2,7 +2,7 @@ from flask_api import FlaskAPI
 from flask_sqlalchemy import SQLAlchemy
 from flask import request, jsonify, abort
 from flask_restful import Resource, reqparse
-
+import bcrypt
 
 from instance.config import app_config
 
@@ -18,6 +18,8 @@ def create_app(config_name):
     db.init_app(app)
 
     from app.models import Group
+    from app.models import User
+    from app.models import GroupUser
 
     @app.route('/groups/', methods=['POST', 'GET'])
     def groups():
@@ -68,11 +70,43 @@ def create_app(config_name):
     @app.route('/groups/<int:id>', methods=['GET'])
     def get_group(id, **kwargs):
         result = Group.query.filter_by(id=id).first()
-        response = jsonify{
+        response = jsonify({
             'id' : result.id,
             'name' : result.name,
             'donated' : result.donated
-        }
+        })
+        return response
+
+    @app.route('/register/', methods=['POST'])
+    def register():
+
+        f_name = request.args['firstname']
+        l_name = request.args['lastname']
+        email = request.args['email']
+        password = request.args['password'].encode('utf-8')
+        hashed = bcrypt.hashpw(password, bcrypt.gensalt())
+        line_1 = request.args['line1']
+        line_2 = request.args['line2']
+        city = request.args['city']
+        zipcode = request.args['zipcode']
+        country = request.args['country']
+
+        user = User(email = email, password = hashed)
+        user.save()
+
+        response = jsonify({
+            'id': user.id,
+            'email' : user.email,
+            'password' : user.password,
+            'firstname': user.f_name,
+            'lastname': user.l_name,
+            'line1': user.line_1,
+            'line2': user.line_2,
+            'city': user.city,
+            'zipcode': user.zipcode,
+            'country': user.country,
+
+        })
         return response
 
     @app.route('/', methods=['GET'])
