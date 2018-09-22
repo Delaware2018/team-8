@@ -18,6 +18,8 @@ def create_app(config_name):
     db.init_app(app)
 
     from app.models import Group
+    from app.models import User
+    from app.models import GroupUser
 
     @app.route('/groups/', methods=['POST', 'GET'])
     def groups():
@@ -73,6 +75,11 @@ def create_app(config_name):
             'name' : result.name,
             'donated' : result.donated
         })
+        return response
+
+    @app.route('/register/', methods=['POST'])
+    def register():
+        response = request.method
         return response
 
     @app.route('/', methods=['GET'])
