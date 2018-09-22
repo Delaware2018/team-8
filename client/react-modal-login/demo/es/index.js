@@ -30,7 +30,7 @@ ReactDOM.render(
     </div>
   </div>
   </div>
-  
+
 </div>
     <Sample />
 
@@ -43,7 +43,6 @@ ReactDOM.render(
         </div>
 
 
-    <BubbleChart data = {datas} />
   </div>
   ,
 
