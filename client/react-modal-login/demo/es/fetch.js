@@ -11,7 +11,7 @@ class Fetcher extends Component {
   }
 
   componentDidMount() {
-    fetch('https://api.mydomain.com')
+    fetch('https://http://34.238.243.88:5000/')
       .then(response => response.json())
       .then(data => this.setState({ data }));
   }

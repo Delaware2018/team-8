@@ -1,7 +1,13 @@
 import React from 'react';
 import ReactModalLogin from '../../../src/react-modal-login';
+import ReactBubbleChart from 'react-bubble-chart';
 
 import {facebookConfig, googleConfig} from "../social-config";
+import axios from 'axios';
+
+var donated = [];
+var id = [];
+var name = [];
 
 export default class Sample extends React.Component {
 
@@ -17,6 +23,7 @@ export default class Sample extends React.Component {
       recoverPasswordSuccess: null,
     };
 
+     this.onLogin = this.onLogin.bind(this)
   }
 
 
@@ -35,6 +42,45 @@ export default class Sample extends React.Component {
     } else {
       this.onLoginSuccess('form');
     }
+
+    // fetch('https://34.238.243.88:5000/')
+    //   .then(response => {
+    //     response.json()
+    //     console.log(response.json);
+    //   })
+    //   .then(data => {
+    //     console.log(data);
+    //     this.setState(groups: data)
+    //   })
+    //   .catch((error) =>  {
+    //     console.log(error);
+    //   });
+
+     axios.get('http://34.238.243.88:5000/groups/create/', {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+        withCredentials: true,
+        credentials: 'same-origin',
+      }
+    })
+      .then(response => {
+        console.log(response.data);
+        console.log(response.data[0]);
+        console.log(response.data[0].donated);
+        console.log(response.data.length);
+        for(let i = 0; i < response.data.length; i++) {
+            donated.push(response.data[i].donated);
+            id.push(response.data[i].id);
+            name.push(response.data[i].name);
+            console.log(donated[i]);
+        }
+        })
+      .catch((error) =>  {
+        console.log(error);
+      })
   }
 
   onRegister() {
@@ -156,6 +202,8 @@ export default class Sample extends React.Component {
         <br></br>
 
         </div>
+
+        <p>{this.state.id}</p>
 
         <ReactModalLogin
           visible={this.state.showModal}

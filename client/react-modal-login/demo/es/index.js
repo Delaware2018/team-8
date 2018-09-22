@@ -16,7 +16,7 @@ ReactDOM.render(
 
 <div class="col-xs-9"></div>
 <div class = "col-xs-3">
-<button type="button" class="btn btn-warning">Business Info</button>
+<br></br>
 
 </div>
     <Sample />

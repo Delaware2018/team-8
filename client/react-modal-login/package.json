@@ -4,6 +4,7 @@
   "description": "A highly customizable react login modal with social buttons",
   "main": "dist/react-modal-login.js",
   "dependencies": {
+    "axios": "^0.18.0",
     "classnames": "^2.2.6",
     "object-assign": "^4.1.1",
     "prop-types": "^15.6.2",
