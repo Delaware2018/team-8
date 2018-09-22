@@ -23,7 +23,7 @@ def create_app(config_name):
     from app.models import User
     from app.models import GroupUser
 
-    @app.route('/groups/create/', methods=['POST'])
+    @app.route('/groups/create/', methods=['POST', 'GET'])
     def groups():
         if request.method == "POST":
             name = request.args['name']
