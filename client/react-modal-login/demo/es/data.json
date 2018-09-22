@@ -1,0 +1,43 @@
+[{
+   "_id": "Ben",
+   "value": 20,
+   "displayText": "",
+   "colorValue": "#FFA500",
+   "selected": true
+},
+{
+   "_id": "Joe",
+   "value": 20,
+   "displayText": "",
+   "colorValue": "#FFA500",
+   "selected": true
+},
+{
+   "_id": "Sara",
+   "value": 20,
+   "displayText": "",
+   "colorValue": "#FFA500",
+   "selected": true
+},
+{
+   "_id": "Yas",
+   "value": 20,
+   "displayText": "",
+   "colorValue": "#FFA500",
+   "selected": true
+},
+{
+   "_id": "Basu",
+   "value": 20,
+   "displayText": "",
+   "colorValue": "#FFA500",
+   "selected": true
+},
+{
+   "_id": "Kev",
+   "value": 20,
+   "displayText": "",
+   "colorValue": "#FFA500",
+   "selected": true
+}
+]
