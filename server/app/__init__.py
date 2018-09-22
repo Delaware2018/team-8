@@ -36,8 +36,18 @@ def create_app(config_name):
                 response.status_code = 201
             return response
         else:
-            # GET
-            return "Get"
+            groups = Group.get_all()
+            ret_list = []
+            for group in groups:
+                json_elm = {
+                    'id' : group.id,
+                    'name' : group.name,
+                    'donated' : group.donated
+            }
+                ret_list.append(json_elm)
+            response = jsonify(ret_list)
+            response.status_code = 200
+            return response
 
     @app.route('/', methods=['GET'])
     def main():
