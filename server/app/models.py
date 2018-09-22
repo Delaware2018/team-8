@@ -5,8 +5,7 @@ class Group(db.Model):
     __tablename__ = 'groups'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
-    donated = db.Column(db.Float)
-    userids = db.relationship("User", lazy=True)
+    donated = db.Column(db.Float, nullable = False)
 
     def __init__(self, name):
         self.name = name
