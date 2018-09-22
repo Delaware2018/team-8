@@ -60,6 +60,9 @@ class GroupUser(db.Model):
     def __init__(self, name):
         self.name = name
 
+    def get_group_members(id):
+        return Group.query.filter_by(group_id=id)
+
     def save(self):
         db.session.add(self)
         db.session.commit()
