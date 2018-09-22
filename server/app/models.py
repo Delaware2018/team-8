@@ -61,7 +61,7 @@ class User(db.Model):
     f_name = db.Column(db.String(100))
     l_name = db.Column(db.String(100))
     email = db.Column(db.String(256), nullable=False, unique=True)
-    password = db.Column(db.String(100), nullable=False)
+    password = db.Column(db.String(10000), nullable=False)
 
     #address
     line_1 = db.Column(db.String(100))
@@ -80,7 +80,8 @@ class User(db.Model):
     bio = db.Column(db.String(256))
 
     def __init__(self, email, password):
-        self.name = name
+        self.email = email
+        self.password = password
 
     def save(self):
         db.session.add(self)
