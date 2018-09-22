@@ -46,6 +46,7 @@ export default class Sample extends React.Component {
     const login = document.querySelector('#login').value;
     const email = document.querySelector('#email').value;
     const password = document.querySelector('#password').value;
+    const industry = document.querySelector('#industry').value;
 
     if (!login || !email || !password) {
       this.setState({
@@ -136,7 +137,7 @@ export default class Sample extends React.Component {
           <p>You are signed in with: {this.state.loggedIn}</p>
         </div>
       : <div>
-          <p>You are signed out</p>
+          <p></p>
       </div>;
 
     const isLoading = this.state.loading;
@@ -150,6 +151,8 @@ export default class Sample extends React.Component {
         >
           Login
         </button>
+
+        <br></br>
 
         <button
           className="RML-btn"
@@ -238,6 +241,15 @@ export default class Sample extends React.Component {
                 id: 'password',
                 name: 'password',
                 placeholder: 'Password',
+              },
+              {
+                containerClass: 'RML-form-group',
+                label: 'Industry',
+                type: 'texts',
+                inputClass: 'RML-form-control',
+                id: 'industry',
+                name: 'industry',
+                placeholder: 'Industry',
               }
             ],
             recoverPasswordInputs: [

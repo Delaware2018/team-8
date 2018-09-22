@@ -8,8 +8,10 @@
     "object-assign": "^4.1.1",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
+    "react-burger-menu": "^2.5.2",
     "react-dom": "^16.4.2",
-    "react-proxy": "^1.1.8"
+    "react-proxy": "^1.1.8",
+    "react-shapes": "^0.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
