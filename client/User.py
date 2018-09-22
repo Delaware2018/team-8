@@ -4,6 +4,8 @@ Created on Sat Sep 22 00:25:53 2018
 
 Script to generate basic data insights 
 involving connections and revenue
+(mostly made to help form ideas
+for our app)
 
 @author: kevin
 """
