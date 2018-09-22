@@ -63,6 +63,9 @@ class GroupUser(db.Model):
     def get_group_members(id):
         return Group.query.filter_by(group_id=id)
 
+    def get_user_groups(id):
+        return Group.query.filter_by(user_id=id)
+
     def save(self):
         db.session.add(self)
         db.session.commit()
