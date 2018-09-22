@@ -135,7 +135,7 @@ def create_app(config_name):
             return response
 
         else:
-            response = {'status_code' : hashed, 'password': my_user.password}
+            response = {'status_code' : 500}
 
         return response
 
