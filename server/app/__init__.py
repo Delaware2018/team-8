@@ -91,17 +91,27 @@ def create_app(config_name):
 
     @app.route('/register/', methods=['POST'])
     def register():
-        f_name = request.args['firstname']
-        l_name = request.args['lastname']
-        email = request.args['email']
-        password = request.args['password']
-        hashed = Bcrypt().generate_password_hash(password).decode()
-        line_1 = request.args['line1']
-        line_2 = request.args['line2']
-        city = request.args['city']
-        state = request.args['state']
-        zipcode = request.args['zipcode']
-        country = request.args['country']
+        if 'firstname' in request.args:
+            f_name = request.args['firstname']
+        if 'lastname' in request.args:
+            l_name = request.args['lastname']
+        if 'email' in request.args:
+            email = request.args['email']
+        if 'password' in request.args:
+            password = request.args['password']
+            hashed = Bcrypt().generate_password_hash(password).decode()
+        if 'line1' in request.args:
+            line_1 = request.args['line1']
+        if 'line2' in request.args:
+            line_2 = request.args['line2']
+        if 'city' in request.args:
+            city = request.args['city']
+        if 'state' in request.args:
+            state = request.args['state']
+        if 'zipcode' in request.args:
+            zipcode = request.args['zipcode']
+        if 'country' in request.args:
+            country = request.args['country']
 
         user = User(email = email, password = hashed)
         user.save()
