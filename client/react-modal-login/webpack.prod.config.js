@@ -11,6 +11,9 @@ module.exports = {
     libraryTarget: 'commonjs2'
   },
   module: {
+    loaders: [
+            { test: /\.json$/, loader: "json-loader" }
+        ],
     rules: [
       {
         test: /\.js$/,
