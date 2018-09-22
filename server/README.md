@@ -10,6 +10,8 @@ cd team-8
 
 
 pip3 install requirements.txt
-
+flask db init
+flask db migrate
+flask db upgrade
 
 flask run
