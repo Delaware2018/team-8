@@ -12,30 +12,29 @@ require('../less/style.less');
 ReactDOM.render(
 
   <div>
-
-
-
-
-
     <SideBar pageWrapId={"page-wrap"}/>
 
 <div class="col-xs-9"></div>
 <div class = "col-xs-3">
-<button type="button" class="btn btn-info">Business Info</button>
+<button type="button" class="btn btn-warning">Business Info</button>
 
 </div>
-
-
     <Sample />
 
     <script> console.log("datas: \n" + datas);
     console.log("typeof datas: " + typeof(datas));
     console.log("data: " + data);</script>
 
-    <br></br>
+
+        <div class="container">
+        </div>
+
 
     <BubbleChart data = {datas} />
   </div>
   ,
+
   document.getElementById('app')
+
+
 );
