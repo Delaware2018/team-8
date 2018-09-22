@@ -3,6 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask import request, jsonify, abort
 from flask_restful import Resource, reqparse
 import bcrypt
+from flask_bcrypt import Bcrypt
+
 
 from instance.config import app_config
 
@@ -21,7 +23,7 @@ def create_app(config_name):
     from app.models import User
     from app.models import GroupUser
 
-    @app.route('/groups/', methods=['POST', 'GET'])
+    @app.route('/groups/create/', methods=['POST'])
     def groups():
         if request.method == "POST":
             name = request.args['name']
@@ -79,12 +81,11 @@ def create_app(config_name):
 
     @app.route('/register/', methods=['POST'])
     def register():
-
         f_name = request.args['firstname']
         l_name = request.args['lastname']
         email = request.args['email']
-        password = request.args['password'].encode('utf-8')
-        hashed = bcrypt.hashpw(password, bcrypt.gensalt())
+        password = request.args['password']
+        hashed = Bcrypt().generate_password_hash(password).decode()
         line_1 = request.args['line1']
         line_2 = request.args['line2']
         city = request.args['city']
@@ -109,6 +110,33 @@ def create_app(config_name):
             'country': user.country,
 
         })
+        return response
+
+    @app.route('/login/', methods=['POST'])
+    def login():
+        email = request.args['email']
+        password = request.args['password']
+        my_user = User.query.filter_by(email=email).first()
+        if (my_user.password_is_valid(password)):
+            response = jsonify({
+                'id': my_user.id,
+                'email' : my_user.email,
+                'password' : my_user.password,
+                'firstname': my_user.f_name,
+                'lastname': my_user.l_name,
+                'line1': my_user.line_1,
+                'line2': my_user.line_2,
+                'city': my_user.city,
+                'state': my_user.state,
+                'zipcode': my_user.zipcode,
+                'country': my_user.country,
+                'status_code' : 201
+            })
+            return response
+
+        else:
+            response = {'status_code' : 500}
+
         return response
 
     @app.route('/', methods=['GET'])
