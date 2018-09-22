@@ -25,6 +25,33 @@ def create_app(config_name):
     from app.models import User
     from app.models import GroupUser
 
+    @app.route('/', methods=['GET'])
+    def get_users():
+        all_users = User.query.all()
+        ret_list = []
+        for user in all_users:
+            user_groups = GroupUser.query.filter_by(user_id = user.id)
+            json_elm = ({
+                'id': user.id,
+                'email' : user.email,
+                'firstname': user.f_name,
+                'lastname': user.l_name,
+                'donated' : user.personal_donations,
+                'groups': []
+            })
+            for group in user_groups:
+                selected_group = Group.query.filter_by(id=group.group_id).first()
+                temp_elm = {
+                    'id' :selected_group.id,
+                    'name' : selected_group.name,
+                    'total_members' : len(GroupUser.query.filter_by(group_id = group.id).all()),
+                    'donated' : selected_group.donated
+                }
+                json_elm['groups'].append(temp_elm)
+            ret_list.append(json_elm)
+        return jsonify(ret_list)
+
+        
     @app.route('/groups/create/', methods=['POST', 'GET'])
     def groups():
         if request.method == "POST":
@@ -92,6 +119,32 @@ def create_app(config_name):
         })
         return response
 
+    @app.route('/login/', methods=['POST'])
+    def login():
+        email = request.args['email']
+        password = request.args['password']
+        my_user = User.query.filter_by(email=email).first()
+        if (my_user.password_is_valid(password)):
+            response = jsonify({
+                'id': my_user.id,
+                'email' : my_user.email,
+                'password' : my_user.password,
+                'firstname': my_user.f_name,
+                'lastname': my_user.l_name,
+                'line1': my_user.line_1,
+                'line2': my_user.line_2,
+                'city': my_user.city,
+                'state': my_user.state,
+                'zipcode': my_user.zipcode,
+                'country': my_user.country,
+                'status_code' : 201
+            })
+            return response
+
+        else:
+            response = {'status_code' : 500}
+        return response
+
     @app.route('/register/', methods=['POST'])
     def register():
         if 'firstname' in request.args:
@@ -134,59 +187,6 @@ def create_app(config_name):
         })
         return response
 
-    @app.route('/login/', methods=['POST'])
-    def login():
-        email = request.args['email']
-        password = request.args['password']
-        my_user = User.query.filter_by(email=email).first()
-        if (my_user.password_is_valid(password)):
-            response = jsonify({
-                'id': my_user.id,
-                'email' : my_user.email,
-                'password' : my_user.password,
-                'firstname': my_user.f_name,
-                'lastname': my_user.l_name,
-                'line1': my_user.line_1,
-                'line2': my_user.line_2,
-                'city': my_user.city,
-                'state': my_user.state,
-                'zipcode': my_user.zipcode,
-                'country': my_user.country,
-                'status_code' : 201
-            })
-            return response
-
-        else:
-            response = {'status_code' : 500}
-
-        return response
-
-
-    @app.route('/', methods=['GET'])
-    def get_users():
-        all_users = User.query.all()
-        ret_list = []
-        for user in all_users:
-            user_groups = GroupUser.query.filter_by(user_id = user.id)
-            json_elm = ({
-                'id': user.id,
-                'email' : user.email,
-                'firstname': user.f_name,
-                'lastname': user.l_name,
-                'donated' : user.personal_donations,
-                'groups': []
-            })
-            for group in user_groups:
-                selected_group = Group.query.filter_by(id=group.group_id).first()
-                temp_elm = {
-                    'id' :selected_group.id,
-                    'name' : selected_group.name,
-                    'total_members' : len(GroupUser.query.filter_by(group_id = group.id).all()),
-                    'donated' : selected_group.donated
-                }
-                json_elm['groups'].append(temp_elm)
-            ret_list.append(json_elm)
-        return jsonify(ret_list)
 
 
     return app
