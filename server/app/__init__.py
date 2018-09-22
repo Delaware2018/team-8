@@ -58,6 +58,7 @@ def create_app(config_name):
     @app.route('/groups/<int:id>/add/', methods=['POST'])
     def add_user_to_group(id, **kwargs):
         user_emails = request.args['user_ids'].strip().split(",")
+        selected_group = Group.query.filter_by(id=id).first()
         ret_list = []
         for user_email in user_emails:
             my_user = User.query.filter_by(id=user_email).first()
@@ -70,6 +71,8 @@ def create_app(config_name):
                 new_group_user.user_id = my_user.id
                 new_group_user.donated = donated
                 new_group_user.save()
+                selected_group.donated += donated
+                selected_group.save()
                 response = ({
                     'id' : new_group_user.id,
                     'group_id' : new_group_user.group_id,
@@ -128,7 +131,6 @@ def create_app(config_name):
             'state': user.state,
             'zipcode': user.zipcode,
             'country': user.country,
-
         })
         return response
 
@@ -159,8 +161,32 @@ def create_app(config_name):
 
         return response
 
+
     @app.route('/', methods=['GET'])
-    def main():
-        return "Hello World"
+    def get_users():
+        all_users = User.query.all()
+        ret_list = []
+        for user in all_users:
+            user_groups = GroupUser.query.filter_by(user_id = user.id)
+            json_elm = ({
+                'id': user.id,
+                'email' : user.email,
+                'firstname': user.f_name,
+                'lastname': user.l_name,
+                'donated' : user.personal_donations,
+                'groups': []
+            })
+            for group in user_groups:
+                selected_group = Group.query.filter_by(id=group.group_id).first()
+                temp_elm = {
+                    'id' :selected_group.id,
+                    'name' : selected_group.name,
+                    'total_members' : len(GroupUser.query.filter_by(group_id = group.id).all()),
+                    'donated' : selected_group.donated
+                }
+                json_elm['groups'].append(temp_elm)
+            ret_list.append(json_elm)
+        return jsonify(ret_list)
+
 
     return app
