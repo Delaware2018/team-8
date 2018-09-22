@@ -22,8 +22,7 @@ ReactDOM.render(
 <div class="col-xs-9"></div>
 <div class = "col-xs-3">
 <button type="button" class="btn btn-info">Business Info</button>
-<button type="button" class="btn btn-success">Sign In</button>
-<button type="button" class="btn btn-primary">Register</button>
+
 </div>
 
 
@@ -32,6 +31,8 @@ ReactDOM.render(
     <script> console.log("datas: \n" + datas);
     console.log("typeof datas: " + typeof(datas));
     console.log("data: " + data);</script>
+
+    <br></br>
 
     <BubbleChart data = {datas} />
   </div>

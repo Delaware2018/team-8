@@ -134,7 +134,7 @@ export default class Sample extends React.Component {
 
     const loggedIn = this.state.loggedIn
       ? <div>
-          <p>You are signed in with: {this.state.loggedIn}</p>
+          <p>You are signed in.</p>
         </div>
       : <div>
           <p></p>
@@ -144,22 +144,18 @@ export default class Sample extends React.Component {
 
     return (
       <div>
+        <div class="col-xs-9"></div>
+        <div class = "col-xs-3">
 
         <button
-          className="RML-btn"
+          type="button"
+          class="btn btn-success"
           onClick={() => this.openModal('login')}
-        >
-          Login
-        </button>
+          >Sign In/Sign Up</button>
 
         <br></br>
 
-        <button
-          className="RML-btn"
-          onClick={() => this.openModal('register')}
-        >
-          Register
-        </button>
+        </div>
 
         <ReactModalLogin
           visible={this.state.showModal}

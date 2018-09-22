@@ -47,6 +47,7 @@ export default ({ data }) =>
     selectedColor="#737373"
     selectedTextColor="#d9d9d9"
     fixedDomain={{min: -1, max: 1}}
+    mediumDiameter={50}
     data={data.map(d => ({
       _id: d._id,
       value: d.value,

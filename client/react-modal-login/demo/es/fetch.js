@@ -17,6 +17,6 @@ class Fetcher extends Component {
   }
 
    render() {
-    return <BookListing books={this.state.data} />;
+    return <Groups people={this.state.data} />;
   }
 }

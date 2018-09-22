@@ -1,28 +1,42 @@
 [{
-   "_id": "Banana",
-   "value": 25,
-   "displayText": "b",
+   "_id": "Shariar",
+   "value": 20,
+   "displayText": "",
    "colorValue": "#FFA500",
    "selected": true
 },
 {
-   "_id": "Cheese",
-   "value": 15,
-   "displayText": "c",
+   "_id": "Ravina",
+   "value": 20,
+   "displayText": "",
    "colorValue": "#FFA500",
    "selected": true
 },
 {
-   "_id": "Gummy",
-   "value": 36,
-   "displayText": "c",
+   "_id": "Sabrina",
+   "value": 20,
+   "displayText": "",
    "colorValue": "#FFA500",
    "selected": true
 },
 {
-   "_id": "PIzza",
-   "value": 29,
-   "displayText": "c",
+   "_id": "Yassin",
+   "value": 20,
+   "displayText": "",
+   "colorValue": "#FFA500",
+   "selected": true
+},
+{
+   "_id": "Baru",
+   "value": 20,
+   "displayText": "",
+   "colorValue": "#FFA500",
+   "selected": true
+},
+{
+   "_id": "Kevin",
+   "value": 20,
+   "displayText": "",
    "colorValue": "#FFA500",
    "selected": true
 }
