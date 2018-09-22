@@ -49,6 +49,16 @@ def create_app(config_name):
             response.status_code = 200
             return response
 
+    @app.route('/groups/<int:id>', methods=['GET'])
+    def get_group(id, **kwargs):
+        result = Group.query.filter_by(id=id).first()
+        response = {
+            'id' : result.id,
+            'name' : result.name,
+            'donated' : result.donated
+        }
+        return response
+
     @app.route('/', methods=['GET'])
     def main():
         return "Hello World"
