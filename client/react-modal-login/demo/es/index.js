@@ -18,6 +18,19 @@ ReactDOM.render(
 <div class = "col-xs-3">
 <button type="button" class="btn btn-warning">Business Info</button>
 
+
+<div class = "searchbar">
+<div class="row"></div>
+  <div class="col-lg-9">
+    <div class="input-group">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Search</button>
+      </span>
+      <input type="text" class="form-control" placeholder="Search for..."></input>
+    </div>
+  </div>
+  </div>
+  
 </div>
     <Sample />
 
