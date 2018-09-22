@@ -22,11 +22,12 @@ class Group(db.Model):
         db.session.commit()
 
     def __repr__(self):
-        return "<Group: {}>".format(self.name
+        return "<Group: {}>".format(self.name)
 
 class GroupUser(db.Model):
 
     __tablename__ = 'groupusers'
+    id = db.Column(db.Integer, primary_key = True)
     group_id = db.Column(db.Integer, nullable=False)
     user_id = db.Column(db.Integer, nullable=False)
     donated = db.Column(db.Float, nullable = False)
@@ -50,4 +51,3 @@ class GroupUser(db.Model):
 
     def __repr__(self):
         return "<GroupUser: {}>".format(self.name)
-
