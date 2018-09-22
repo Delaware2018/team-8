@@ -32,8 +32,8 @@ class GroupUser(db.Model):
     user_id = db.Column(db.Integer, nullable=False)
     donated = db.Column(db.Float, nullable = False)
 
-    def __init__(self, name):
-        self.name = name
+    def __init__(self, group_id):
+        self.group_id = group_id
 
     def get_group_members(id):
         return Group.query.filter_by(group_id=id)
