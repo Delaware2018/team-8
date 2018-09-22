@@ -55,19 +55,27 @@ def create_app(config_name):
 
     @app.route('/groups/<int:id>/add/', methods=['POST'])
     def add_user_to_group(id, **kwargs):
-        user_id = request.args['user_id']
-        donated = float(request.args['donated'])
-        new_group_user = GroupUser(group_id = id)
-        new_group_user.user_id = user_id
-        new_group_user.donated = donated
-        new_group_user.save()
-        response = ({
-            'id' : new_group_user.id,
-            'group_id' : new_group_user.group_id,
-            'donated' : new_group_user.donated,
-            'user_id' : new_group_user.user_id
-        })
-        return response
+        user_emails = request.args['user_ids'].strip().split(",")
+        ret_list = []
+        for user_email in user_emails:
+            my_user = User.query.filter_by(id=user_email).first()
+            if my_user:
+                if ('donated' not in request.args):
+                    donated = 0.00
+                else:
+                    donated = float(request.args['donated'])
+                new_group_user = GroupUser(group_id = id)
+                new_group_user.user_id = my_user.id
+                new_group_user.donated = donated
+                new_group_user.save()
+                response = ({
+                    'id' : new_group_user.id,
+                    'group_id' : new_group_user.group_id,
+                    'donated' : new_group_user.donated,
+                    'user_id' : new_group_user.user_id
+                })
+                ret_list.append(response)
+        return jsonify(ret_list)
 
     @app.route('/groups/<int:id>', methods=['GET'])
     def get_group(id, **kwargs):
