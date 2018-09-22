@@ -49,10 +49,26 @@ def create_app(config_name):
             response.status_code = 200
             return response
 
+    @app.route('/groups/<int:id>/add/', methods=['POST'])
+    def add_user_to_group(id, **kwargs):
+        user_id = request.args['user_id']
+        donated = float(request.args['donated'])
+        new_group_user = GroupUser(group_id = id)
+        new_group_user.user_id = user_id
+        new_group_user.donated = donated
+        new_group_user.save()
+        response = ({
+            'id' : new_group_user.id,
+            'group_id' : new_group_user.group_id,
+            'donated' : new_group_user.donated,
+            'user_id' : new_group_user.user_id
+        })
+        return response
+
     @app.route('/groups/<int:id>', methods=['GET'])
     def get_group(id, **kwargs):
         result = Group.query.filter_by(id=id).first()
-        response = {
+        response = jsonify{
             'id' : result.id,
             'name' : result.name,
             'donated' : result.donated
