@@ -54,7 +54,7 @@ class GroupUser(db.Model):
 
 class User(db.Model):
 
-    __tablename__ = 'Users'
+    __tablename__ = 'users'
 
     #name
     id = db.Column(db.Integer, primary_key=True)
