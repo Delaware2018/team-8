@@ -50,3 +50,4 @@ class GroupUser(db.Model):
 
     def __repr__(self):
         return "<GroupUser: {}>".format(self.name)
+
