@@ -2,7 +2,7 @@ import os
 
 
 class Config(object):
-    DEBUG = False
+    DEBUG = True
     TESTING = False
     CSRF_ENABLED = True
     SECRET_KEY = "mysecretkey"
@@ -13,8 +13,14 @@ class TestingConfig(Config):
 
 
 class ProductionConfig(Config):
-    DEBUG = False
+    DEBUG = True
 
 class DevelopmentConfig(Config):
     DEVELOPMENT = True
     DEBUG = True
+
+app_config = {
+    'development': DevelopmentConfig,
+    'testing': TestingConfig,
+    'production': ProductionConfig,
+}
