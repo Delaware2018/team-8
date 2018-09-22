@@ -88,6 +88,7 @@ def create_app(config_name):
         line_1 = request.args['line1']
         line_2 = request.args['line2']
         city = request.args['city']
+        state = request.args['state']
         zipcode = request.args['zipcode']
         country = request.args['country']
 
@@ -103,6 +104,7 @@ def create_app(config_name):
             'line1': user.line_1,
             'line2': user.line_2,
             'city': user.city,
+            'state': user.state,
             'zipcode': user.zipcode,
             'country': user.country,
 

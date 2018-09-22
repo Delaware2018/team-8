@@ -67,6 +67,7 @@ class User(db.Model):
     line_1 = db.Column(db.String(100))
     line_2 = db.Column(db.String(100))
     city = db.Column(db.String(50))
+    state = db.Column(db.String(50))
     zipcode = db.Column(db.Integer)
     country = db.Column(db.String(50))
 
