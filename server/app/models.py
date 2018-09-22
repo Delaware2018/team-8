@@ -1,4 +1,7 @@
 from app import db
+import bcrypt
+from flask_bcrypt import Bcrypt
+
 
 class Group(db.Model):
 
