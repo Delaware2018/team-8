@@ -4,6 +4,9 @@ from flask import request, jsonify, abort
 from flask_restful import Resource, reqparse
 import bcrypt
 from flask_bcrypt import Bcrypt
+from flask_cors import CORS
+CORS(app)
+
 
 
 from instance.config import app_config
