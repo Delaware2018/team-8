@@ -68,11 +68,11 @@ def create_app(config_name):
     @app.route('/groups/<int:id>', methods=['GET'])
     def get_group(id, **kwargs):
         result = Group.query.filter_by(id=id).first()
-        response = jsonify{
+        response = jsonify({
             'id' : result.id,
             'name' : result.name,
             'donated' : result.donated
-        }
+        })
         return response
 
     @app.route('/', methods=['GET'])
