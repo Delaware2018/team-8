@@ -65,7 +65,7 @@ def create_app(config_name):
             if my_user:
                 if ('donated' not in request.args):
                     donated = 0.00
-                else:
+                elif (len(ret_list) == 0 and 'donated' in request.args):
                     donated = float(request.args['donated'])
                 new_group_user = GroupUser(group_id = id)
                 new_group_user.user_id = my_user.id
